@@ -1537,7 +1537,7 @@ google.maps.__gjsload__('common', function(_) {
                 lk = !0;
                 var b = _.Pi(_.T, 39) ? (new _.jf(_.T.data[39])).getStatus() : _.Ad(_.T, 37);
                 b = _.Xi(a, 0) || 0 != a.getStatus() || 2 == b;
-                if (!b) {
+                /*if (!b) {
                     pm();
                     if (_.Pi(new _.jf(a.data[5]), 2))
                         a = _.Q(new _.jf(a.data[5]), 2);
@@ -1554,7 +1554,7 @@ google.maps.__gjsload__('common', function(_) {
                     }
                     _.Nb(a);
                     _.w.gm_authFailure && _.w.gm_authFailure()
-                }
+                }*/
                 nk();
                 f(b)
             })
