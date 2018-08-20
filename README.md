@@ -35,7 +35,7 @@
         });
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    <script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/2b21d740/mapsJavaScriptAPI.js"
     async defer></script>
   </body>
 </html>
