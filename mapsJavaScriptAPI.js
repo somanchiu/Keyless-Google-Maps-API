@@ -1294,7 +1294,7 @@ google.maps = google.maps || {};
             d = d.createElement("script");
             d.type = "text/javascript";
             d.charset = "UTF-8";
-            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/1a/intl/zh_tw/common.js'?b:'https://cdn.rawgit.com/somanchiu/test/d461363d/common.js';
+            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/1a/intl/zh_tw/common.js'?b:'https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/0b23b31b/common.js';
             c && (d.onerror = c);
             (c = _.Ia()) && d.setAttribute("nonce", c);
             a.appendChild(d)
