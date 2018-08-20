@@ -1,6 +1,6 @@
 # Usage
 ```html
-<script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/2b21d740/mapsJavaScriptAPI.js"></script>
+<script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/v1.0/mapsJavaScriptAPI.js"></script>
 ```
 # Example
 ```html
@@ -35,7 +35,7 @@
         });
       }
     </script>
-    <script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/2b21d740/mapsJavaScriptAPI.js"
+    <script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/v1.0/mapsJavaScriptAPI.js"
     async defer></script>
   </body>
 </html>
