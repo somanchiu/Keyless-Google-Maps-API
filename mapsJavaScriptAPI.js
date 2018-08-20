@@ -1294,7 +1294,7 @@ google.maps = google.maps || {};
             d = d.createElement("script");
             d.type = "text/javascript";
             d.charset = "UTF-8";
-            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/1a/intl/zh_tw/common.js'?b:'common.js';
+            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/1a/intl/zh_tw/common.js'?b:'./common.js';
             c && (d.onerror = c);
             (c = _.Ia()) && d.setAttribute("nonce", c);
             a.appendChild(d)
