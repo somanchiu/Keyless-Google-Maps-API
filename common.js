@@ -3706,7 +3706,6 @@ google.maps.__gjsload__('common', function(_) {
     hr = function(a, b) {
         a = $q(a);
         _.km(_.ei, _.gr + "/maps/api/js/ViewportInfoService.GetViewportInfo", _.hg, a, function(a) {
-            debugger;
             b(new Wq(a))
         })
     }
