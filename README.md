@@ -1,6 +1,6 @@
 # Usage
 ```html
-<script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/v1.0/mapsJavaScriptAPI.js"></script>
+<script src="https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/v2.0/mapsJavaScriptAPI.js"></script>
 ```
 # Example
 ```html
