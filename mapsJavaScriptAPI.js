@@ -1309,7 +1309,7 @@ google.maps = google.maps || {};
             d = d.createElement("script");
             d.type = "text/javascript";
             d.charset = "UTF-8";
-            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/3/intl/zh_tw/common.js'?b:'https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/f43f80dd/common.js';
+            d.src = b!='https://maps.googleapis.com/maps-api-v3/api/js/34/3/intl/zh_tw/common.js'?b:'https://cdn.rawgit.com/somanchiu/Keyless-Google-Maps-API/3b076cc7/common.js';
             c && (d.onerror = c);
             (c = _.Ia()) && d.setAttribute("nonce", c);
             a.appendChild(d)
