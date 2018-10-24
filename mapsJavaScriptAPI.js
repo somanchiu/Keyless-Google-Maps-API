@@ -1,7 +1,7 @@
 var formData = new FormData();
 var args = '';
 if (typeof language != 'undefined') args += '&language=' + language;
-formData.append("url", 'https://maps.googleapis.com/maps/api/js?callback=initMap' + args);
+formData.append("url", 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDIJ9XX2ZvRKCJcFRrl-lRanEtFUow4piM&callback=initMap' + args);
 var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
