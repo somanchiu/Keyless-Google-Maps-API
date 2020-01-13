@@ -11,5 +11,5 @@ xhr.onreadystatechange = function () {
         document.head.appendChild(script);
     }
 };
-xhr.open("GET", 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=AIzaSyDIJ9XX2ZvRKCJcFRrl-lRanEtFUow4piM&callback=initMap' + args, true);
+xhr.open("GET", 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=:)&callback=initMap' + args, true);
 xhr.send();
