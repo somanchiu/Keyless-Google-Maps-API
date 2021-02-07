@@ -3,7 +3,7 @@ var proxyURL = 'https://api.allorigins.win/raw?url=';
 var args = '';
 if (typeof language != 'undefined') args += '&language=' + language;
 
-var bypass = function (googleAPIcomponent) {
+var bypass = function (googleAPIcomponent, proxyURL) {
     if (googleAPIcomponent.src.indexOf("common.js") == -1) {
         document.head.appendChild(googleAPIcomponent);
     } else {
@@ -16,7 +16,7 @@ var bypass = function (googleAPIcomponent) {
                 document.head.appendChild(script);
             }
         };
-        xhr.open("GET", googleAPIcomponent.src, true);
+        xhr.open("GET", proxyURL + googleAPIcomponent.src, true);
         xhr.send();
     }
 }
@@ -27,7 +27,7 @@ xhr.onreadystatechange = function () {
         var script = document.createElement('script');
         var appendChildToHeadJS = this.responseText.match(/;\w{1}.appendChild\((\w{1})\)/);
         var googleAPIcomponent = appendChildToHeadJS[1];
-        script.innerHTML = this.responseText.replace(appendChildToHeadJS[0], ';(' + bypass.toString() + ')(' + googleAPIcomponent + ')');
+        script.innerHTML = this.responseText.replace(appendChildToHeadJS[0], ';(' + bypass.toString() + ')(' + googleAPIcomponent + ', "' + proxyURL + '")');
         document.head.appendChild(script);
     }
 };
