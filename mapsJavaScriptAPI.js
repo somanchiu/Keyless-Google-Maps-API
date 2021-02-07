@@ -3,9 +3,9 @@ var proxyURL = 'https://api.allorigins.win/raw?url=';
 var args = '';
 if (typeof language != 'undefined') args += '&language=' + language;
 
-var bypass = function (headDynamicVarName, loadJSscript, proxyURL){
-    if (loadJSscript.src.indexOf("common.js") == -1) {
-        headDynamicVarName.appendChild(loadJSscript);
+var bypass = function (googleAPIcomponent, proxyURL){
+    if (googleAPIcomponent.src.indexOf("common.js") == -1) {
+        document.head.appendChild(googleAPIcomponent);
     } else {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -15,7 +15,7 @@ var bypass = function (headDynamicVarName, loadJSscript, proxyURL){
                 script.innerHTML=this.responseText.replace(new RegExp("if\\(!"+dynamicVarName+"\\){.*Failure\\(\\)}","s"),"");
                 document.head.appendChild(script);
             }};
-        xhr.open("GET", proxyURL + loadJSscript.src, true);
+        xhr.open("GET", proxyURL + googleAPIcomponent.src, true);
         xhr.send();
         return;
     }
@@ -25,10 +25,9 @@ var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
         var script = document.createElement('script');
-        var temp=this.responseText.match(/;(\w{1}).appendChild\((\w{1})\)}/);
-        var headDynamicVarName=temp[1];
-        var loadJSscript=temp[2];
-        script.innerHTML = this.responseText.replace(headDynamicVarName+'.appendChild('+loadJSscript+')', '('+bypass.toString()+')('+headDynamicVarName+', '+loadJSscript+', "'+proxyURL+'")');
+        var appendChildToHeadJS=this.responseText.match(/;\w{1}.appendChild\((\w{1})\)/);
+        var googleAPIcomponent=appendChildToHeadJS[1];
+        script.innerHTML = this.responseText.replace(appendChildToHeadJS[0], ';('+bypass.toString()+')('+googleAPIcomponent+', "'+proxyURL+'")');
         document.head.appendChild(script);
     }
 };
