@@ -10,9 +10,8 @@ var bypass = function (googleAPIcomponent, proxyURL) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                var dynamicVarName = this.responseText.match(/\.getStatus\(\)\|\|2==(.*?);/)[1];
                 var script = document.createElement('script');
-                script.innerHTML = this.responseText.replace(new RegExp("if\\(!" + dynamicVarName + "\\){.*Failure\\(\\)}", "s"), "");
+                script.innerHTML = this.responseText.replace(new RegExp(/if\(!\w{1}\){.*Failure\(\)}/s), "");
                 document.head.appendChild(script);
             }
         };
