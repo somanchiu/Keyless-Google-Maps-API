@@ -3,7 +3,7 @@ var proxyURL = 'https://api.allorigins.win/raw?url=';
 var args = '';
 if (typeof language != 'undefined') args += '&language=' + language;
 
-var bypass = function (googleAPIcomponent, proxyURL){
+var bypass = function (googleAPIcomponent) {
     if (googleAPIcomponent.src.indexOf("common.js") == -1) {
         document.head.appendChild(googleAPIcomponent);
     } else {
@@ -12,12 +12,12 @@ var bypass = function (googleAPIcomponent, proxyURL){
             if (this.readyState == 4 && this.status == 200) {
                 var dynamicVarName = this.responseText.match(/\.getStatus\(\)\|\|2==(.*?);/)[1];
                 var script = document.createElement('script');
-                script.innerHTML=this.responseText.replace(new RegExp("if\\(!"+dynamicVarName+"\\){.*Failure\\(\\)}","s"),"");
+                script.innerHTML = this.responseText.replace(new RegExp("if\\(!" + dynamicVarName + "\\){.*Failure\\(\\)}", "s"), "");
                 document.head.appendChild(script);
-            }};
-        xhr.open("GET", proxyURL + googleAPIcomponent.src, true);
+            }
+        };
+        xhr.open("GET", googleAPIcomponent.src, true);
         xhr.send();
-        return;
     }
 }
 
@@ -25,9 +25,9 @@ var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
         var script = document.createElement('script');
-        var appendChildToHeadJS=this.responseText.match(/;\w{1}.appendChild\((\w{1})\)/);
-        var googleAPIcomponent=appendChildToHeadJS[1];
-        script.innerHTML = this.responseText.replace(appendChildToHeadJS[0], ';('+bypass.toString()+')('+googleAPIcomponent+', "'+proxyURL+'")');
+        var appendChildToHeadJS = this.responseText.match(/;\w{1}.appendChild\((\w{1})\)/);
+        var googleAPIcomponent = appendChildToHeadJS[1];
+        script.innerHTML = this.responseText.replace(appendChildToHeadJS[0], ';(' + bypass.toString() + ')(' + googleAPIcomponent + ')');
         document.head.appendChild(script);
     }
 };
