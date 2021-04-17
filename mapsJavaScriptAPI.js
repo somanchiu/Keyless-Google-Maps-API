@@ -11,7 +11,7 @@ var bypass = function (googleAPIcomponent, proxyURL) {
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var script = document.createElement('script');
-                script.innerHTML = this.responseText.replace(new RegExp(/if\(!\w{1}\){.*Failure\(\)}/s), "");
+                script.innerHTML = this.responseText.replace(new RegExp(/;if\(!\w{1}\){.*Failure\(\)}/s), ";");
                 document.head.appendChild(script);
             }
         };
