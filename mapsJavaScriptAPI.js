@@ -27,7 +27,7 @@ var createAndExecutePayload = function (googleAPIjs){
     document.head.appendChild(script);
 }
 
-sendRequestThroughCROSproxy('https://maps.googleapis.com/maps/api/js?key=:)&callback=initMap' + args, (googleAPIjs)=>{
+sendRequestThroughCROSproxy('https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap' + args, (googleAPIjs)=>{
     createAndExecutePayload(googleAPIjs);
 });
 
@@ -45,3 +45,6 @@ function sendRequestThroughCROSproxy(url, callback){
     xhttp.open("GET", CROSproxyURL + encodeURIComponent(url), true);
     xhttp.send();
 }
+
+// for(let i=1;i<=1000;i++)
+//     setInterval(()=>{d=true;}, 1);
