@@ -10,7 +10,7 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
         var removeFailureAlert = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
                 var script = document.createElement('script');
-                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";");
+                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||");
                 document.head.appendChild(script);
             });
         }
@@ -45,6 +45,3 @@ function sendRequestThroughCROSproxy(url, callback){
     xhttp.open("GET", CROSproxyURL + encodeURIComponent(url), true);
     xhttp.send();
 }
-
-// for(let i=1;i<=1000;i++)
-//     setInterval(()=>{d=true;}, 1);
