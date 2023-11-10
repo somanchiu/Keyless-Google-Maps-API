@@ -10,7 +10,7 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
         var removeFailureAlert = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
                 var script = document.createElement('script');
-                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||");
+                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||").replace(/\{.*\/maps\/api\/js\/QuotaService.RecordEvent.*?\}\)\}/, '{}');
                 document.head.appendChild(script);
             });
         }
