@@ -9,8 +9,13 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
     } else {
         var removeFailureAlert = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
+                var anotherAppendChildToHeadJSRegex = /.src=(.*?);\(void 0\)/;
+                var anotherAppendChildToHeadJS = responseText.match(anotherAppendChildToHeadJSRegex);
+                var googleAPItrustedScriptURL = anotherAppendChildToHeadJS[1];
+                var bypassQuotaServicePayload = anotherAppendChildToHeadJS[0].replace(googleAPItrustedScriptURL, googleAPItrustedScriptURL+'.toString().indexOf("QuotaService.RecordEvent")!=-1?"":'+googleAPItrustedScriptURL);
+
                 var script = document.createElement('script');
-                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||").replace(/\{.*\/maps\/api\/js\/QuotaService.RecordEvent.*?\}\)\}/, '{}');
+                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||").replace(anotherAppendChildToHeadJSRegex, bypassQuotaServicePayload);
                 document.head.appendChild(script);
             });
         }
