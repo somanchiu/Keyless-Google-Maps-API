@@ -4,9 +4,7 @@ var args = '';
 if (typeof language != 'undefined') args += '&language=' + language;
 
 var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
-    if (googleAPIcomponentURL.toString().indexOf("common.js") == -1) {
-        googleAPIcomponentJS.src = googleAPIcomponentURL;
-    } else {
+    if (googleAPIcomponentURL.toString().indexOf("common.js") != -1) {
         var removeFailureAlert = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
                 var anotherAppendChildToHeadJSRegex = /.src=(.*?);\(void 0\)/;
@@ -20,6 +18,22 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
             });
         }
         googleAPIcomponentJS.innerHTML = '(' + removeFailureAlert.toString() + ')("' + googleAPIcomponentURL.toString() + '")';
+    } else if(googleAPIcomponentURL.toString().indexOf("map.js") != -1){
+        var hijackMapJS = function(googleAPIcomponentURL) {
+            sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
+                var unknownStatusRegex = /const .*?=(.*\.getStatus\(\));/;
+                var unknownStatusMatch = responseText.match(unknownStatusRegex);
+                var unknownStatus=unknownStatusMatch[1];
+                var replaceUnknownStatusPayload = unknownStatusMatch[0].replace(unknownStatus, '1');
+                
+                var script = document.createElement('script');
+                script.innerHTML = responseText.replace(unknownStatusRegex, replaceUnknownStatusPayload);
+                document.head.appendChild(script);
+            });
+        }
+        googleAPIcomponentJS.innerHTML = '(' + hijackMapJS.toString() + ')("' + googleAPIcomponentURL.toString() + '")';
+    } else {
+        googleAPIcomponentJS.src = googleAPIcomponentURL;
     }
 }
 
