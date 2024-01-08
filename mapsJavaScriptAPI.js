@@ -13,7 +13,7 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
                 var bypassQuotaServicePayload = anotherAppendChildToHeadJS[0].replace(googleAPItrustedScriptURL, googleAPItrustedScriptURL+'.toString().indexOf("QuotaService.RecordEvent")!=-1?"":'+googleAPItrustedScriptURL);
 
                 var script = document.createElement('script');
-                script.innerHTML = responseText.replace(new RegExp(/;if.*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);.*\?.*?\()/), "$1true||").replace(anotherAppendChildToHeadJSRegex, bypassQuotaServicePayload);
+                script.innerHTML = responseText.replace(new RegExp(/;if\(![a-z]+?\).*Failure.*?\}/), ";").replace(new RegExp(/(\|\|\(\(\)=>\{\}\);\S+\?\S+?\()/), "$1true||").replace(anotherAppendChildToHeadJSRegex, bypassQuotaServicePayload);
                 document.head.appendChild(script);
             });
         }
@@ -21,11 +21,10 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
     } else if(googleAPIcomponentURL.toString().indexOf("map.js") != -1){
         var hijackMapJS = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
-                var unknownStatusRegex = /const .*?=(.*\.getStatus\(\));/;
+                var unknownStatusRegex = /\);default:.*;const.*getStatus\(\);/;
                 var unknownStatusMatch = responseText.match(unknownStatusRegex);
-                var unknownStatus=unknownStatusMatch[1];
-                var replaceUnknownStatusPayload = unknownStatusMatch[0].replace(unknownStatus, '1');
-                
+                var replaceUnknownStatusPayload = unknownStatusMatch[0].substring(0, unknownStatusMatch[0].lastIndexOf("=")+1)+"1;";
+
                 var script = document.createElement('script');
                 script.innerHTML = responseText.replace(unknownStatusRegex, replaceUnknownStatusPayload);
                 document.head.appendChild(script);
