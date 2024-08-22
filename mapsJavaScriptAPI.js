@@ -21,12 +21,17 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
     } else if(googleAPIcomponentURL.toString().indexOf("map.js") != -1){
         var hijackMapJS = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
-                var unknownStatusRegex = /\);default:.*;const.*getStatus\(\);/;
-                var unknownStatusMatch = responseText.match(unknownStatusRegex);
-                var replaceUnknownStatusPayload = unknownStatusMatch[0].substring(0, unknownStatusMatch[0].lastIndexOf("=")+1)+"1;";
-
                 var script = document.createElement('script');
-                script.innerHTML = responseText.replace(unknownStatusRegex, replaceUnknownStatusPayload);
+
+                var unknownStatusRegex = /const\s+(\w+)\s*=.*?;/g;
+                var unknownStatusMatch = responseText.match(unknownStatusRegex);
+      
+                for(let i=0;i<unknownStatusMatch.length;i++){
+                    if(unknownStatusMatch[i].indexOf("getStatus")!=-1){
+                        script.innerHTML = responseText.replace(unknownStatusMatch[i], unknownStatusMatch[i].replace(/=.*/, '=1;'));
+                        break;
+                    }
+                }
                 document.head.appendChild(script);
             });
         }
