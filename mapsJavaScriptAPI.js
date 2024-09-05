@@ -7,7 +7,7 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
     if (googleAPIcomponentURL.toString().indexOf("common.js") != -1) {
         var removeFailureAlert = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
-                var anotherAppendChildToHeadJSRegex = /.src=(.*?);\(void 0\)/;
+                var anotherAppendChildToHeadJSRegex = /\.head;.*src=(.*?);/;
                 var anotherAppendChildToHeadJS = responseText.match(anotherAppendChildToHeadJSRegex);
                 var googleAPItrustedScriptURL = anotherAppendChildToHeadJS[1];
                 var bypassQuotaServicePayload = anotherAppendChildToHeadJS[0].replace(googleAPItrustedScriptURL, googleAPItrustedScriptURL+'.toString().indexOf("QuotaService.RecordEvent")!=-1?"":'+googleAPItrustedScriptURL);
