@@ -22,16 +22,7 @@ var bypass = function (googleAPIcomponentJS, googleAPIcomponentURL) {
         var hijackMapJS = function(googleAPIcomponentURL) {
             sendRequestThroughCROSproxy(googleAPIcomponentURL,(responseText)=>{
                 var script = document.createElement('script');
-
-                var unknownStatusRegex = /const\s+(\w+)\s*=.*?;/g;
-                var unknownStatusMatch = responseText.match(unknownStatusRegex);
-      
-                for(let i=0;i<unknownStatusMatch.length;i++){
-                    if(unknownStatusMatch[i].indexOf("getStatus")!=-1){
-                        script.innerHTML = responseText.replace(unknownStatusMatch[i], unknownStatusMatch[i].replace(/=.*/, '=1;'));
-                        break;
-                    }
-                }
+                script.innerHTML = responseText.replace(new RegExp(/if\(\w+!==1&&\w+!==2\)/), "if(false)");
                 document.head.appendChild(script);
             });
         }
